@@ -3,7 +3,7 @@ package org.phpex.statements
 import org.phpex.expressions.Expression
 import org.phpex.environments.Environment
 
-class WhileStatement(pass:Expression, s1:Statement) extends Statement {
+case class WhileStatement(pass:Expression, s1:Statement) extends Statement {
   
   def execute(env:Environment): Environment = {
     var environment = env

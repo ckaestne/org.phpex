@@ -2,7 +2,7 @@ package org.phpex.statements
 
 import org.phpex.environments.Environment
 
-class BlockStatement(statements:List[Statement]) extends Statement {
+case class BlockStatement(statements:List[Statement]) extends Statement {
   
   def execute(env:Environment): Environment = {
     println("fehler")

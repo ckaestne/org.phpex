@@ -6,7 +6,7 @@ import scala.collection.immutable.Stack
 import org.phpex.values.Value
 import org.phpex.values.concrete.StringValue
 
-class SimpleEnvironment(vars:Map[String, Value], output:Stack[Value]) extends Environment {
+case class SimpleEnvironment(vars:Map[String, Value], output:Stack[Value]) extends Environment {
   
   def update(name:String, value:Value): Environment = {
     return new SimpleEnvironment(vars + (name -> value), getOutput)

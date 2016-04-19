@@ -4,7 +4,7 @@ import org.phpex.values.SymbolicValue
 import org.phpex.values.Value
 import org.phpex.expressions.Expression
 
-class Choice(p:Expression, v1:Value, v2:Value) extends SymbolicValue {
+case class Choice(p:Expression, v1:Value, v2:Value) extends SymbolicValue {
   def intValue: Integer = 0
   def boolValue: Boolean = false
   //def stringValue: String
