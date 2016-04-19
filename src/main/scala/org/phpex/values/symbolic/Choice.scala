@@ -9,6 +9,6 @@ case class Choice(p:Expression, v1:Value, v2:Value) extends SymbolicValue {
   def boolValue: Boolean = false
   //def stringValue: String
   
-  override def toString() = "ite(" + p.toString + ", " + v1 + ", " + v2 + ")"
+  override def toString() = "CHOICE(" + p.toString + ", " + v1 + ", " + v2 + ")"
 }
   
