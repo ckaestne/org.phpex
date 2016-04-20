@@ -11,8 +11,11 @@ case class ReturnStatement(e:Expression) extends Statement {
     return new SimpleEnvironment(env_.getMap(), env_.getOutput(), env_.getCalls().pop)
   }
   
-  // TODO wahrscheinlich wie oben
-  def symbolicExecute(env:Environment): Environment = ???
+  // TODO testen
+  def symbolicExecute(env:Environment): Environment = {
+    val env_ = env.update("return", e.evaluate(env))
+    return new SimpleEnvironment(env_.getMap(), env_.getOutput(), env_.getCalls().pop)
+  }
   
   override def toString() = "return " + e.toString() + ";"
   

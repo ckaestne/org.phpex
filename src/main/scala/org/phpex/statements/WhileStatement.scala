@@ -1,8 +1,7 @@
 package org.phpex.statements
 
-import org.phpex.expressions.Expression
 import org.phpex.environments.Environment
-import org.phpex.statements.SkipStatement
+import org.phpex.expressions.Expression
 import org.phpex.values.concrete.BooleanValue
 
 case class WhileStatement(pass:Expression, s1:BlockStatement) extends Statement {

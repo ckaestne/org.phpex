@@ -104,5 +104,9 @@ case class IfStatement(pass: Expression, s1: BlockStatement, s2: BlockStatement)
       b = b.push(element_b)
     }
   }
+  
+  override def toString(): String = {
+    "if (" + pass + ") {" + s1 + "} else { " + s2 + "}"
+  }
 
 }

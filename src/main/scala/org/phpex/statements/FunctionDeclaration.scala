@@ -10,7 +10,9 @@ case class FunctionDeclaration(name:String, args:List[String], body:BlockStateme
     return env.update(name, FunctionValue(args, body))
   }
   
-  def symbolicExecute(env:Environment): Environment = ???
+  def symbolicExecute(env:Environment): Environment = {
+    return env.update(name, FunctionValue(args, body))
+  }
   
   override def toString() = "define " + name + "(" + args.foreach { arg => arg } + ") {" + body + "}"
   
