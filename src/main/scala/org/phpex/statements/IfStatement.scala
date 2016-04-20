@@ -20,9 +20,6 @@ case class IfStatement(pass: Expression, s1: Statement, s2: Statement) extends S
     }
   }
 
-  /*
-   * addOutput(null) for marking purpose
-   */
   def symbolicExecute(env: Environment): Environment = {
     joinStates(env, s1.execute(env), s2.execute(env)) // pop since null is added prior to that
   }
@@ -85,15 +82,13 @@ case class IfStatement(pass: Expression, s1: Statement, s2: Statement) extends S
     val prefix = pref(s1.reverse, s2.reverse)  
     val output1 = s1.reverse.slice(prefix.size, s1.size)
     val output2 = s2.reverse.slice(prefix.size, s2.size)  
-    
-    System.err.println(prefix)
-    
+
     if (compareStacks(output1, output2)) {
-      return prefix ++ output1 // pop since null is added prior to that
+      return prefix ++ output1
     } else {
       var stv1 = new StringValue(output1.foldLeft("")((a, b) => a + b))
       var stv2 = new StringValue(output2.foldLeft("")((a, b) => a + b))
-      return prefix.push(new Choice(p, stv1, stv2)).reverse // pop since null is added prior to that
+      return prefix.push(new Choice(p, stv1, stv2)).reverse
     }
 
   }
