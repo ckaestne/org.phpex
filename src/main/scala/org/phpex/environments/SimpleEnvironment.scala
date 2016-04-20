@@ -5,8 +5,9 @@ import scala.collection.immutable.Stack
 
 import org.phpex.values.Value
 import org.phpex.values.concrete.StringValue
+import scala.collection.immutable.HashMap
 
-case class SimpleEnvironment(vars:Map[String, Value], output:Stack[Value]) extends Environment {
+case class SimpleEnvironment(vars:Map[String, Value] = new HashMap[String, Value], output:Stack[Value] = new Stack[Value]) extends Environment {
   
   def update(name:String, value:Value): Environment = {
     return new SimpleEnvironment(vars + (name -> value), getOutput)
@@ -21,5 +22,6 @@ case class SimpleEnvironment(vars:Map[String, Value], output:Stack[Value]) exten
   def getMap = vars
   def getOutput() = output
   
-  override def toString() = vars.toString()
+  override def toString() = vars.toString() + " " + output.toString()
+  
 }
