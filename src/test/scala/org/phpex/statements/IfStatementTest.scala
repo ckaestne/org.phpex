@@ -7,19 +7,20 @@ import org.scalatest.FlatSpec
 import org.phpex.expressions.integer.IntegerConstant
 import org.phpex.values.concrete.IntegerValue
 import org.phpex.values.symbolic.Choice
+import org.phpex.statements.EchoStatement
 
 object IfStatementTest {
   
   def ifStatement1(b:Boolean): Statement = {
     IfStatement(BooleanConstant(b),
-        EchoStatement("A"), 
-        EchoStatement("B"))
+        BlockStatement(List(EchoStatement("A"))), 
+        BlockStatement(List(EchoStatement("B"))))
   }
   
   def ifStatement2(b:Boolean): Statement = {
     IfStatement(BooleanConstant(b),
-        AssignStatement("a", IntegerConstant(1)), 
-        AssignStatement("a", IntegerConstant(0)))
+        BlockStatement(List(AssignStatement("a", IntegerConstant(1)))), 
+        BlockStatement(List(AssignStatement("a", IntegerConstant(0)))))
   }
 
 }

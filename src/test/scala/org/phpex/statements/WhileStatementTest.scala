@@ -22,7 +22,7 @@ object WhileStatementTest {
     BlockStatement(List(
       AssignStatement("i", IntegerConstant(0)),
       WhileStatement( LessThan(Variable("i"), IntegerConstant(10)),
-        AssignStatement("i", Add(Variable("i"), IntegerConstant(1))
+        BlockStatement(List(AssignStatement("i", Add(Variable("i"), IntegerConstant(1))))
       ))
     ))
   }
