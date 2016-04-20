@@ -9,7 +9,7 @@ import org.phpex.values.Value
 import org.phpex.values.concrete.StringValue
 import org.phpex.values.symbolic.Choice
 
-case class IfStatement(pass: Expression, s1: Statement, s2: Statement) extends Statement {
+case class IfStatement(pass: Expression, s1: BlockStatement, s2: BlockStatement) extends Statement {
 
   def execute(env: Environment): Environment = {
     if (pass.evaluate(env).boolValue) {
