@@ -5,7 +5,7 @@ import org.phpex.values.concrete.BooleanValue
 import org.phpex.environments.Environment
 
 case class BooleanConstant(value:Boolean) extends BooleanExpression {
-  def evaluate(env:Environment) = new BooleanValue(value)
+  def evaluate(env:Environment) = BooleanValue(value)
   
   override def toString = value.toString
 }

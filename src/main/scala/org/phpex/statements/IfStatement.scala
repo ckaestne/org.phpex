@@ -9,7 +9,6 @@ import org.phpex.values.Value
 import org.phpex.values.concrete.StringValue
 import org.phpex.values.symbolic.Choice
 
-
 case class IfStatement(pass: Expression, s1: Statement, s2: Statement) extends Statement {
 
   def execute(env: Environment): Environment = {
@@ -24,24 +23,52 @@ case class IfStatement(pass: Expression, s1: Statement, s2: Statement) extends S
     joinStates(env, s1.execute(env), s2.execute(env)) // pop since null is added prior to that
   }
 
+  def joinStates(env: Environment, env1: Environment, env2: Environment): Environment = {
+    var joinedMap = joinStateMaps(env1.getMap(), env2.getMap())
+    var joinedOutput = joinStacks(pass, env1.getOutput(), env2.getOutput())
+    return SimpleEnvironment(joinedMap, joinedOutput)
+  }
+
+  private def joinStacks(p: Expression, s1: Stack[Value], s2: Stack[Value]): Stack[Value] = {
+    val prefix = pref(s1.reverse, s2.reverse)
+    val output1 = s1.reverse.slice(prefix.size, s1.size)
+    val output2 = s2.reverse.slice(prefix.size, s2.size)
+
+    if (compareStacks(output1, output2)) {
+      return prefix ++ output1
+    } else {
+      var stv1 = StringValue(output1.foldLeft("")((a, b) => a + b))
+      var stv2 = StringValue(output2.foldLeft("")((a, b) => a + b))
+      return prefix.push( Choice(p, stv1, stv2) ).reverse
+    }
+  }
+
+  private def pref(s: Stack[Value], t: Stack[Value], out: Stack[Value] = Stack[Value]()): Stack[Value] = {
+    if (s.isEmpty || t.isEmpty || !s(0).equals(t(0))) {
+      return out
+    } else {
+      pref(s.slice(1, s.size), t.slice(1, t.size), out.push(s(0)))
+    }
+  }
+
   private def joinStateMaps(m1: Map[String, Value], m2: Map[String, Value]): Map[String, Value] = {
 
     var smap = Map[String, Value]()
 
     // get all keys that are in m1 but not in m2
     (m1.keySet -- m2.keySet).foreach {
-      key => smap += key -> new Choice(pass, m1.get(key).get, null)
+      key => smap += key -> Choice(pass, m1.get(key).get, null)
     }
 
     // get all keys that are in m2 but not in m1
     (m2.keySet -- m1.keySet).foreach {
-      key => smap += key -> new Choice(pass, null, m2.get(key).get)
+      key => smap += key -> Choice(pass, null, m2.get(key).get)
     }
 
     // get all keys that are in both m1 and m2
     (m1.keySet intersect m2.keySet).foreach { key =>
       if (!m1.get(key).get.toString().equals(m2.get(key).get.toString())) {
-        smap += key -> new Choice(pass, m1.get(key).get, m2.get(key).get)
+        smap += key -> Choice(pass, m1.get(key).get, m2.get(key).get)
       } else {
         smap += key -> m1.get(key).get // equals m2.get(key).get
       }
@@ -74,36 +101,6 @@ case class IfStatement(pass: Expression, s1: Statement, s2: Statement) extends S
     } finally { // restore elements
       a = a.push(element_a)
       b = b.push(element_b)
-    }
-  }
-
-  private def joinStacks(p: Expression, s1: Stack[Value], s2: Stack[Value]): Stack[Value] = {
-
-    val prefix = pref(s1.reverse, s2.reverse)  
-    val output1 = s1.reverse.slice(prefix.size, s1.size)
-    val output2 = s2.reverse.slice(prefix.size, s2.size)  
-
-    if (compareStacks(output1, output2)) {
-      return prefix ++ output1
-    } else {
-      var stv1 = new StringValue(output1.foldLeft("")((a, b) => a + b))
-      var stv2 = new StringValue(output2.foldLeft("")((a, b) => a + b))
-      return prefix.push(new Choice(p, stv1, stv2)).reverse
-    }
-
-  }
-
-  def joinStates(env: Environment, env1: Environment, env2: Environment): Environment = {
-    var joinedMap = joinStateMaps(env1.getMap(), env2.getMap())
-    var joinedOutput = joinStacks(pass, env1.getOutput(), env2.getOutput())
-    return new SimpleEnvironment(joinedMap, joinedOutput)
-  }
-  
-  private def pref(s: Stack[Value], t: Stack[Value], out: Stack[Value] = Stack[Value]()): Stack[Value] = {
-    if (s.isEmpty || t.isEmpty || !s(0).equals(t(0))) {
-      return out
-    } else {
-      pref(s.slice(1, s.size), t.slice(1, t.size), out.push(s(0)))
     }
   }
 

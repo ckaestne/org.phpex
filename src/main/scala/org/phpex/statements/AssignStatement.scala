@@ -6,13 +6,9 @@ import org.phpex.environments.SimpleEnvironment
 
 case class AssignStatement(name:String, value:Expression) extends Statement {
   
-  def execute(env:Environment): Environment = {
-    return env.update(name, value.evaluate(env))
-  }
+  def execute(env:Environment) = env.update(name, value.evaluate(env))
   
-  def symbolicExecute(env:Environment): Environment = {
-    return env.update(name, value.evaluate(env))
-  }
+  def symbolicExecute(env:Environment) = env.update(name, value.evaluate(env))
 
   override def toString() = name + " <- " + value.toString
   

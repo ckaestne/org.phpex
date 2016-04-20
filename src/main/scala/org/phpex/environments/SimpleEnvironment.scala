@@ -10,13 +10,13 @@ import scala.collection.immutable.HashMap
 case class SimpleEnvironment(vars:Map[String, Value] = new HashMap[String, Value], output:Stack[Value] = new Stack[Value]) extends Environment {
   
   def update(name:String, value:Value): Environment = {
-    return new SimpleEnvironment(vars + (name -> value), getOutput)
+    return SimpleEnvironment(vars + (name -> value), getOutput)
   }
   
   def lookup(name:String) = vars.get(name).get
   
   def addOutput(s:String): Environment = {
-    return new SimpleEnvironment(getMap, output.push(new StringValue(s)))
+    return SimpleEnvironment(getMap, output.push(new StringValue(s)))
   }
   
   def getMap = vars

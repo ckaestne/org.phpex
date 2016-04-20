@@ -5,7 +5,7 @@ import org.phpex.values.concrete.IntegerValue
 import org.phpex.environments.Environment
 
 case class IntegerConstant(value:Int) extends IntegerExpression {
-  def evaluate(env:Environment) = new IntegerValue(value)
+  def evaluate(env:Environment) = IntegerValue(value)
   
   override def toString() = value.toString()
 }
