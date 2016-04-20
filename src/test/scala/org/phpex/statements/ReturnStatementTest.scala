@@ -16,9 +16,9 @@ object ReturnStatementTest {
    * }
    * a = f(2,3);
    */
-  def returnStatementExample1(): Statement = BlockStatement(List(
+  def returnStatementExample1(): Statement = BlockStatement(
       FunctionDeclarationTest.functionDeclaration1(), 
-      AssignStatement("a", Call("f", List(IntegerConstant(2), IntegerConstant(32))))))
+      AssignStatement("a", Call("f", List(IntegerConstant(2), IntegerConstant(32)))))
       
   /**
    * function f(x) {
@@ -30,9 +30,9 @@ object ReturnStatementTest {
    * }
    * a = f(10)
    */
-  def returnStatementExample2(): Statement = BlockStatement(List(
+  def returnStatementExample2(): Statement = BlockStatement(
       FunctionDeclarationTest.recursiveExample1(), 
-      AssignStatement("a", Call("f", List(IntegerConstant(10))))))
+      AssignStatement("a", Call("f", List(IntegerConstant(10)))))
 
 }
 
