@@ -7,8 +7,6 @@ import org.phpex.statements.BlockStatement
 case class FunctionValue(args:List[String], body:BlockStatement) extends Value {
   
   def getArgs() = args
-  
-  def intValue = ???
-  def boolValue = ???
+
   override def toString = "FUNCTION(" + (args mkString ",") + ") {\n" + body.toString() + "\n}"
 }

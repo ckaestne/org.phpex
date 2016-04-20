@@ -4,6 +4,5 @@ import org.phpex.values.ConcreteValue
 
 case class IntegerValue(value:Int) extends ConcreteValue {
   def intValue = value
-  def boolValue = if (value == 1) true else false
   override def toString = value.toString()
 }

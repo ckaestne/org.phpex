@@ -8,11 +8,12 @@ import org.phpex.expressions.Expression
 import org.phpex.values.Value
 import org.phpex.values.concrete.StringValue
 import org.phpex.values.symbolic.Choice
+import org.phpex.values.concrete.BooleanValue
 
 case class IfStatement(pass: Expression, s1: BlockStatement, s2: BlockStatement) extends Statement {
 
   def execute(env: Environment): Environment = {
-    if (pass.evaluate(env).boolValue) {
+    if (pass.evaluate(env).asInstanceOf[BooleanValue].value) {
       return s1.execute(env)
     } else {
       return s2.execute(env)
