@@ -17,6 +17,9 @@ import org.phpex.statements.EchoStatement
 
 object Statements {
   
+  /**
+   * a = 42;
+   */
   def assignStatement1(): Statement = new AssignStatement("a", new IntegerConstant(42))
   def assignStatement2(): Statement = new AssignStatement("a", new IntegerConstant(43))
   
@@ -43,5 +46,13 @@ object Statements {
    * 	echo "C";
    * }
    */
-  def printStatement2(): Statement = new BlockStatement(List(new EchoStatement("A"), new IfStatement(new Variable("b"), new EchoStatement("B"), new EchoStatement("C"))))
+  def printStatement2(): Statement = 
+    BlockStatement(List(
+        EchoStatement("A"), 
+        IfStatement(Variable("b"), 
+            EchoStatement("B"), 
+            
+            BlockStatement(List(
+                EchoStatement("C"), 
+                EchoStatement("D"))))))
 }

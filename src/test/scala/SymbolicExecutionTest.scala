@@ -1,16 +1,15 @@
-import org.phpex.environments.SimpleEnvironment
 import scala.collection.immutable.Stack
-import org.phpex.values.Value
+
 import org.phpex.environments.Environment
-import org.scalatest.FunSuite
+import org.phpex.environments.SimpleEnvironment
 import org.phpex.examples.Statements
-import org.phpex.values.concrete.IntegerValue
-import org.phpex.expressions.integer.IntegerConstant
-import org.phpex.expressions.bool.LessThan
-import org.phpex.values.symbolic.Choice
 import org.phpex.expressions.Variable
 import org.phpex.expressions.bool.BooleanConstant
+import org.phpex.values.Value
+import org.phpex.values.concrete.IntegerValue
 import org.phpex.values.concrete.StringValue
+import org.phpex.values.symbolic.Choice
+import org.scalatest.FunSuite
 
 
 object SymbolicExecutionTest {

@@ -34,6 +34,5 @@ class ExecutionTest extends FunSuite {
     val env = new SimpleEnvironment(Map[String, Value](), new Stack[Value]())
     assert("ABC".equals(Statements.printStatement1().execute(env).getOutput().reverse.foldLeft("")((a, b) => a + b)))  
   }
-
 }
 
