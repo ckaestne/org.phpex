@@ -6,5 +6,7 @@ class StatementTestSuite extends Suites (
     new AssignStatementTest,
     new BlockStatementTest,
     new IfStatementTest,
-    new WhileStatementTest
+    new WhileStatementTest,
+    new ReturnStatementTest,
+    new FunctionDeclarationTest
 )
