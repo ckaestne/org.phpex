@@ -4,5 +4,7 @@ import org.scalatest.Suites
 
 class StatementTestSuite extends Suites (
     new AssignStatementTest,
-    new IfStatementTest
+    new BlockStatementTest,
+    new IfStatementTest,
+    new WhileStatementTest
 )
