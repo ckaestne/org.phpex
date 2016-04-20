@@ -18,7 +18,7 @@ case class WhileStatement(pass:Expression, s1:BlockStatement) extends Statement 
    * For now, a loop will only be symbolically executed once.
    */
   def symbolicExecute(env:Environment): Environment = {
-    val transformed = IfStatement(pass, s1, BlockStatement(List(new SkipStatement())))
+    val transformed = IfStatement(pass, s1, BlockStatement(new SkipStatement()))
     return transformed.symbolicExecute(env)
   }
   
