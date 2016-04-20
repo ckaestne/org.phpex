@@ -13,14 +13,14 @@ object IfStatementTest {
   
   def ifStatement1(b:Boolean): Statement = {
     IfStatement(BooleanConstant(b),
-        BlockStatement(List(EchoStatement("A"))), 
-        BlockStatement(List(EchoStatement("B"))))
+        BlockStatement(EchoStatement("A")), 
+        BlockStatement(EchoStatement("B")))
   }
   
   def ifStatement2(b:Boolean): Statement = {
     IfStatement(BooleanConstant(b),
-        BlockStatement(List(AssignStatement("a", IntegerConstant(1)))), 
-        BlockStatement(List(AssignStatement("a", IntegerConstant(0)))))
+        BlockStatement(AssignStatement("a", IntegerConstant(1))), 
+        BlockStatement(AssignStatement("a", IntegerConstant(0))))
   }
 
 }
