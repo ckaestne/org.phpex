@@ -8,5 +8,5 @@ case class FunctionValue(args:List[String], body:BlockStatement) extends Value {
   
   def getArgs() = args
 
-  override def toString = "FUNCTION(" + (args mkString ",") + ") {\n" + body.toString() + "\n}"
+  override def toString = "FUNCTION(" + (args mkString ",") + ")" //+  "{\n" + body.toString() + "\n}"
 }

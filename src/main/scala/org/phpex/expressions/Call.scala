@@ -7,6 +7,7 @@ import org.phpex.statements.Statement
 import org.phpex.values.Value
 import org.phpex.values.concrete.FunctionValue
 import org.phpex.values.symbolic.SymbolValue
+import scala.collection.immutable.HashMap
 
 case class Call(name: String, args: List[Expression]) extends Expression {
 
@@ -34,13 +35,15 @@ case class Call(name: String, args: List[Expression]) extends Expression {
 
     /* First, create a new, empty environment with 
      * the arguments assigned to the function parameteters. */
-    val assignments = for ((name, expr) <- (function.getArgs() zip args)) yield new AssignStatement(name, expr).asInstanceOf[Statement]
-
+    //val assignments = for ((name, expr) <- (function.getArgs() zip args)) yield new AssignStatement(name, expr).asInstanceOf[Statement]
+    
     /* Push this.name to the call stack */
     var env2: Environment = SimpleEnvironment(env.getMap(), env.getOutput(), env.getCalls().push(this.name))
-
+    for ((name, expr) <- (function.getArgs() zip args)) {
+      env2 = env2.update(name, expr.evaluate(env))
+    }
     /* Execute assignments */
-    assignments.foreach { a => env2 = a.execute(env2) }
+    //assignments.foreach { a => env2 = a.execute(env2) }
 
     /* Execute the function body */
     env2 = function.body.execute(env2)
@@ -55,6 +58,6 @@ case class Call(name: String, args: List[Expression]) extends Expression {
     return returnValue
   }
 
-  override def toString() = name + (args mkString ",")
+  override def toString() = name + "(" + (args mkString ",") + ")"
 
 }

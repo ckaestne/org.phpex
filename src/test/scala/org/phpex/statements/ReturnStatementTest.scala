@@ -7,6 +7,7 @@ import org.phpex.expressions.integer.IntegerConstant
 import org.phpex.values.concrete.IntegerValue
 import org.phpex.values.concrete.IntegerValue
 import org.scalatest.FlatSpec
+import org.phpex.values.SymbolicValue
 
 object ReturnStatementTest extends App {
 
@@ -33,24 +34,43 @@ object ReturnStatementTest extends App {
   def returnStatementExample2(): Statement = BlockStatement(
     FunctionDeclarationTest.recursiveExample1(),
     AssignStatement("a", Call("f", List(IntegerConstant(10)))))
+    
+  /**
+   * function euclid(x) {
+   * 	...
+   * }
+   * a = euclid(35, 14) // => 7
+   */
+  def returnStatementExample3(): Statement = BlockStatement(
+    FunctionDeclarationTest.euclid(),
+    AssignStatement("a", Call("euclid", List(IntegerConstant(35), IntegerConstant(14)))))
+
 }
 
 class ReturnStatementTest extends FlatSpec {
 
-  "Function with return statement simply executed" should "return a correct value" in {
+  "Function 1 with return statement simply executed" should "return a correct value" in {
     assert(ReturnStatementTest.returnStatementExample1().execute(SimpleEnvironment()).lookup("a").equals(IntegerValue(64)))
   }
 
-  "Function with return statement symbolically executed" should "return a correct value" in {
+  "Function 1 with return statement symbolically executed" should "return a correct value" in {
     assert(ReturnStatementTest.returnStatementExample1().symbolicExecute(SimpleEnvironment()).lookup("a").equals(IntegerValue(64)))
   }
 
-  "Recursive function with return statement simply executed" should "return a correct value" in {
+  "Recursive 1 function with return statement simply executed" should "return a correct value" in {
     assert(ReturnStatementTest.returnStatementExample2().execute(SimpleEnvironment()).lookup("a").equals(IntegerValue(0)))
   }
 
-  "Recursive function with return statement symbolically executed" should "detect recursion" in {
-    assert(ReturnStatementTest.returnStatementExample2().symbolicExecute(SimpleEnvironment()).lookup("a") != null)
+  "Recursive 1 function with return statement symbolically executed" should "detect recursion" in {
+    assert(ReturnStatementTest.returnStatementExample2().symbolicExecute(SimpleEnvironment()).lookup("a").isInstanceOf[SymbolicValue])
+  }
+  //
+  "Recursive 2 function (GCD, euclid) with return statement simply executed" should "return a correct value" in {
+    assert(ReturnStatementTest.returnStatementExample3().execute(SimpleEnvironment()).lookup("a").equals(IntegerValue(7)))
+  }
+
+  "Recursive 2 function (GCD, euclid) with return statement symbolically executed" should "detect recursion" in {
+    assert(ReturnStatementTest.returnStatementExample3().symbolicExecute(SimpleEnvironment()).lookup("a").isInstanceOf[SymbolicValue])
   }
 //
 }
