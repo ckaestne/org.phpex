@@ -1,9 +1,11 @@
 package org.phpex.environments
 
-import org.phpex.values.Value
 import scala.collection.immutable.Map
 import scala.collection.immutable.Stack
-import org.phpex.expressions.Call
+
+import org.phpex.expressions.Expression
+import org.phpex.expressions.bool.BooleanConstant
+import org.phpex.values.Value
 
 trait Environment {
   def update(name:String, value:Value): Environment
@@ -11,8 +13,9 @@ trait Environment {
   def addOutput(s:String): Environment
   
   def getMap(): Map[String, Value]
-  def getOutput(): Stack[Value] // Not only Strings, since symbolic outputs may occur
-  def getCalls(): Stack[(Call, Environment)]
-  
-  override def toString() = "FEhler"
+  def getOutput(): Stack[Value]
+  def getPathCondition(): Expression
+  def addPathConstraint(s: Expression): Environment
+  def getCalls(): Stack[String]
 }
+
