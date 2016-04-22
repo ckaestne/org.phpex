@@ -14,12 +14,12 @@ import org.phpex.expressions.bool.And
 case class SimpleEnvironment(vars: Map[String, Value] = new HashMap[String, Value], output: Stack[Value] = new Stack[Value], calls: Stack[String] = new Stack[String], pathCondition: Expression = BooleanConstant(true)) extends Environment {
 
   def update(name: String, value: Value): Environment = {
-    println("ENV-" + calls.size + ".UPDATE(\'" + name + "\' -> " + value + ")")
+    //println("ENV-" + calls.size + ".UPDATE(\'" + name + "\' -> " + value + ")")
     return SimpleEnvironment(vars + (name -> value), getOutput, getCalls)
   }
 
   def lookup(name: String) = {
-    println("ENV-" + calls.size + ".LOOKUP(\'" + name + "\')")
+    //println("ENV-" + calls.size + ".LOOKUP(\'" + name + "\')")
     vars.get(name).get
   }
 
