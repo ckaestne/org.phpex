@@ -1,5 +1,7 @@
 package org.phpex.values
 
-trait SymbolicValue extends Value {
+import org.phpex.expressions.Expression
+
+trait SymbolicValue extends Value with Expression {
   
 }
