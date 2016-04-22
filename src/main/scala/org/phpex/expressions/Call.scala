@@ -33,17 +33,14 @@ case class Call(name: String, args: List[Expression]) extends Expression {
       return null
     }
 
-    /* First, create a new, empty environment with 
-     * the arguments assigned to the function parameteters. */
-    //val assignments = for ((name, expr) <- (function.getArgs() zip args)) yield new AssignStatement(name, expr).asInstanceOf[Statement]
-    
     /* Push this.name to the call stack */
     var env2: Environment = SimpleEnvironment(env.getMap(), env.getOutput(), env.getCalls().push(this.name))
+    
+    /* First, create a new, empty environment with 
+     * the arguments assigned to the function parameteters. */
     for ((name, expr) <- (function.getArgs() zip args)) {
       env2 = env2.update(name, expr.evaluate(env))
     }
-    /* Execute assignments */
-    //assignments.foreach { a => env2 = a.execute(env2) }
 
     /* Execute the function body */
     env2 = function.body.execute(env2)
