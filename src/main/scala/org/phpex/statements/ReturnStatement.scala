@@ -10,8 +10,7 @@ case class ReturnStatement(e:Expression) extends Statement {
     val env_ = env.update("return", e.evaluate(env))
     return new SimpleEnvironment(env_.getMap(), env_.getOutput(), env_.getCalls().pop)
   }
-  
-  // TODO testen
+ 
   def symbolicExecute(env:Environment): Environment = {
     val env_ = env.update("return", e.evaluate(env))
     return new SimpleEnvironment(env_.getMap(), env_.getOutput(), env_.getCalls().pop)
