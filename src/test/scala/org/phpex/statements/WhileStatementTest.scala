@@ -9,6 +9,8 @@ import org.phpex.expressions.Variable
 import org.phpex.environments.SimpleEnvironment
 import org.phpex.values.concrete.IntegerValue
 import org.phpex.values.symbolic.Choice
+import org.phpex.expressions.bool.And
+import org.phpex.expressions.bool.BooleanConstant
 
 object WhileStatementTest {
   
@@ -26,7 +28,7 @@ object WhileStatementTest {
       ))
     ))
   }
-
+  
 }
 
 class WhileStatementTest extends FlatSpec {
@@ -36,6 +38,6 @@ class WhileStatementTest extends FlatSpec {
   }
   
   "WhileStatement symbolically executed" should "be executed once (or not)" in {
-    assert(WhileStatementTest.whileStatement1().symbolicExecute(SimpleEnvironment()).lookup("i").equals( Choice(LessThan(Variable("i"), IntegerConstant(10)), IntegerValue(1), IntegerValue(0)) ))
+    assert(WhileStatementTest.whileStatement1().symbolicExecute(SimpleEnvironment()).lookup("i").equals( Choice(And(BooleanConstant(true), LessThan(Variable("i"), IntegerConstant(10))), IntegerValue(1), IntegerValue(0)) ))
   }
 }
