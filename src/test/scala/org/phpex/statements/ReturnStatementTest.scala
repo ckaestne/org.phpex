@@ -7,7 +7,6 @@ import org.phpex.expressions.integer.IntegerConstant
 import org.phpex.values.concrete.IntegerValue
 import org.phpex.values.concrete.IntegerValue
 import org.scalatest.FlatSpec
-import org.phpex.values.symbolic.SymbolConstant
 
 object ReturnStatementTest extends App {
 
